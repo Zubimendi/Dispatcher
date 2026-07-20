@@ -80,7 +80,6 @@ cmd/worker       Delivery worker pool (stateless, horizontally scalable)
 cmd/reconciler   Scheduled reconciliation + archival job
 internal/        All business logic, organized by concern (see ARCHITECTURE.md)
 pkg/models       Shared domain types
-docs/            PRD, architecture, testing, story, agent context
 ```
 
 
