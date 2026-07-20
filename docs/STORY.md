@@ -31,7 +31,7 @@ It's open source. The part I'm actually proud of isn't the code — it's
 explains the tradeoff behind each one. That doc is the artifact; the code
 is the evidence it's not just talk.
 
-Repo: <your-fork-url>
+Repo: https://github.com/Zubimendi/Dispatcher
 
 ## The longer version (for a blog post / README "why" section)
 

@@ -3,7 +3,7 @@ package delivery
 import (
 	"testing"
 
-	"github.com/yourname/dispatcher/pkg/models"
+	"github.com/Zubimendi/Dispatcher/pkg/models"
 )
 
 func TestCanTransition_LegalPaths(t *testing.T) {

@@ -19,7 +19,7 @@ import (
 
 	"github.com/redis/go-redis/v9"
 
-	"github.com/yourname/dispatcher/pkg/models"
+	"github.com/Zubimendi/Dispatcher/pkg/models"
 )
 
 const endpointTTL = 5 * time.Minute

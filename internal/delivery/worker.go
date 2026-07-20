@@ -18,10 +18,10 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 	"go.uber.org/zap"
 
-	"github.com/yourname/dispatcher/internal/events"
-	"github.com/yourname/dispatcher/internal/observability"
-	"github.com/yourname/dispatcher/internal/queue"
-	"github.com/yourname/dispatcher/pkg/models"
+	"github.com/Zubimendi/Dispatcher/internal/events"
+	"github.com/Zubimendi/Dispatcher/internal/observability"
+	"github.com/Zubimendi/Dispatcher/internal/queue"
+	"github.com/Zubimendi/Dispatcher/pkg/models"
 )
 
 type Worker struct {

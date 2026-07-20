@@ -36,7 +36,7 @@ the code is the evidence.
 Requires Go 1.22+, Docker, and Docker Compose.
 
 ```bash
-git clone <your-fork-url> dispatcher && cd dispatcher
+git clone https://github.com/Zubimendi/Dispatcher dispatcher && cd dispatcher
 cp .env.example .env
 go mod tidy              # resolves dependencies (needs network access)
 make up                  # starts Postgres + Redis + a webhook-sink, runs migrations

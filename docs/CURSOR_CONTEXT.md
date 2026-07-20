@@ -11,6 +11,8 @@ behind the existing code, before changing anything.
 ## Project identity
 
 - **Name:** Dispatcher — a reliable webhook delivery platform.
+- **Repo:** https://github.com/Zubimendi/Dispatcher
+- **Module:** `github.com/Zubimendi/Dispatcher`
 - **Stack:** Go 1.22, GraphQL (`graphql-go/graphql`, hand-assembled
   schema, no codegen), PostgreSQL (source of truth + job queue via
   `FOR UPDATE SKIP LOCKED`), Redis (cache-aside for endpoint reads only).
@@ -50,8 +52,14 @@ behind the existing code, before changing anything.
 - `internal/graphql` — schema + resolvers for `createEndpoint`,
   `updateEndpoint`, `publishEvent`, `endpoint` query, `deliveryStatus`
   query, with server-side validation on every mutation.
-- `cmd/api`, `cmd/worker`, `cmd/reconciler` — three entrypoints, all with
-  graceful shutdown, all stateless/config-via-env.
+- `cmd/api`, `cmd/worker`, `cmd/reconciler` — three entrypoints,
+  stateless/config-via-env. API and worker shut down gracefully on
+  SIGINT/SIGTERM; reconciler is a one-shot (cron-friendly) that runs
+  reconcile + archive then exits. Worker wires the `usage_ledger`
+  subscriber and a `ReleaseStale` reaper.
+- Module path: `github.com/Zubimendi/Dispatcher` (repo:
+  https://github.com/Zubimendi/Dispatcher). `go.sum` present; `go build
+  ./...`, `go vet ./...`, and `go test ./... -race` pass.
 - Unit tests for state machine, backoff jitter, HMAC signing
   (`internal/delivery/*_test.go`).
 - `docker-compose.yml` (Postgres, Redis, a webhook-sink for manual
@@ -61,22 +69,6 @@ behind the existing code, before changing anything.
 
 ### NOT done — verify before assuming it works
 
-- **This code has not been compiled.** It was written in a sandboxed
-  environment with no network access, so `go mod tidy` / `go build` were
-  never run. **Your first task in a new session should be:**
-  ```
-  go mod tidy
-  go build ./...
-  go vet ./...
-  go test ./... -race
-  ```
-  and fix whatever surfaces — likely candidates: minor import
-  mismatches, `pgx` API surface drift between v5 minor versions (e.g.
-  `pgxpool.Config` field names), and the `graphql-go/graphql` argument
-  type assertions in `internal/graphql/resolvers.go` (nullable optional
-  args in that library can come through as different Go types than
-  expected — double check `updateEndpoint`'s optional-field handling
-  especially).
 - **Tenant creation/auth has no mutation or middleware yet.** There's a
   `tenants` table with an `api_key` column but nothing enforces it. Next
   step: add a `createTenant` mutation (or seed via migration for local
@@ -145,20 +137,18 @@ changing them should come with an update to that doc, not just a diff:
 
 ## Suggested next-session priorities, in order
 
-1. Get it compiling and passing `go test ./...` (see "NOT done" above).
-2. Stand up `docker compose up` and walk through `docs/TESTING.md`
+1. Stand up `docker compose up` and walk through `docs/TESTING.md`
    end-to-end by hand once, to confirm the documented behavior actually
    matches reality — fix either the code or the docs, whichever is wrong.
-3. Add tenant auth (item above) — this is the biggest correctness gap for
+2. Add tenant auth (item above) — this is the biggest correctness gap for
    anyone actually trying to run this multi-tenant.
-4. Add the `test/integration` suite with testcontainers-go.
-5. Then, in rough priority order: rate limiting, tracing, Dockerfiles for
+3. Add the `test/integration` suite with testcontainers-go.
+4. Then, in rough priority order: rate limiting, tracing, Dockerfiles for
    deployment, a `createTenant` mutation.
 
 ## How to give a fresh agent session everything it needs
 
 Point it at, in this order: this file → `docs/ARCHITECTURE.md` →
-`docs/PRD.md`. Tell it explicitly: "this codebase has never been
-compiled — verify and fix before adding features," and "don't remove a
-resilience pattern to make a build error go away without checking
-ARCHITECTURE.md for why it's there."
+`docs/PRD.md`. Tell it explicitly: "don't remove a resilience pattern to
+make a build error go away without checking ARCHITECTURE.md for why it's
+there."

@@ -21,7 +21,7 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 	"go.uber.org/zap"
 
-	"github.com/yourname/dispatcher/internal/observability"
+	"github.com/Zubimendi/Dispatcher/internal/observability"
 )
 
 type Reconciler struct {

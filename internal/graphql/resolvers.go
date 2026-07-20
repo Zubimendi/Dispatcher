@@ -9,9 +9,9 @@ import (
 	"github.com/graphql-go/graphql"
 	"github.com/jackc/pgx/v5/pgxpool"
 
-	"github.com/yourname/dispatcher/internal/cache"
-	"github.com/yourname/dispatcher/internal/outbox"
-	"github.com/yourname/dispatcher/pkg/models"
+	"github.com/Zubimendi/Dispatcher/internal/cache"
+	"github.com/Zubimendi/Dispatcher/internal/outbox"
+	"github.com/Zubimendi/Dispatcher/pkg/models"
 )
 
 type Resolvers struct {

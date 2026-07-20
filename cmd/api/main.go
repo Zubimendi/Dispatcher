@@ -14,12 +14,12 @@ import (
 	graphqlhandler "github.com/graphql-go/handler"
 	"go.uber.org/zap"
 
-	"github.com/yourname/dispatcher/internal/cache"
-	"github.com/yourname/dispatcher/internal/config"
-	"github.com/yourname/dispatcher/internal/db"
-	"github.com/yourname/dispatcher/internal/graphql"
-	"github.com/yourname/dispatcher/internal/observability"
-	"github.com/yourname/dispatcher/internal/outbox"
+	"github.com/Zubimendi/Dispatcher/internal/cache"
+	"github.com/Zubimendi/Dispatcher/internal/config"
+	"github.com/Zubimendi/Dispatcher/internal/db"
+	"github.com/Zubimendi/Dispatcher/internal/graphql"
+	"github.com/Zubimendi/Dispatcher/internal/observability"
+	"github.com/Zubimendi/Dispatcher/internal/outbox"
 )
 
 func main() {

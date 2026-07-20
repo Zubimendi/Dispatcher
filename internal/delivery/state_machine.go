@@ -11,7 +11,7 @@ package delivery
 import (
 	"fmt"
 
-	"github.com/yourname/dispatcher/pkg/models"
+	"github.com/Zubimendi/Dispatcher/pkg/models"
 )
 
 var allowedTransitions = map[models.JobStatus][]models.JobStatus{
